@@ -13,7 +13,8 @@ import streamlit as st
 name_on_order = st.text_input("Name on Smoothie:")
 st.write("The name on your Smoothie will be:", name_on_order)
 
-session = get_active_session()
+nx = st.connection("snowflake")
+session = cnx.session()
 my_dataframe = session.table("smoothies.public.fruit_options").select(col("FRUIT_NAME"))
 #st.dataframe(data=my_dataframe, use_container_width=True)
 
@@ -44,5 +45,4 @@ if ingredients_list:
         session.sql(my_insert_stmt).collect()
         st.success('Your Smoothie is ordered!', icon="✅")
 
-cnx = st.connection("snowflake")
-session = cnx.session()
+c
